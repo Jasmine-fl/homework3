@@ -194,19 +194,14 @@ while True:
     #最も内側の()の中身を計算 をかっこがなくなるまで繰り返す
     while(1):
         list_tokensInsideBracket = find_tokens_inside_bracket(tokens) #[()の中身, (の位置, )の位置]
-        print "[tokens_inside_bracket, bracket_left_index, bracket_right_index] = "
-        print list_tokensInsideBracket #debug後に削除
         tokens_inside_bracket = list_tokensInsideBracket[0]
         bracket_left_index = list_tokensInsideBracket[1]
         bracket_right_index = list_tokensInsideBracket[2]
-        if bracket_right_index == 0:
-            # print "bracketがないのでbreak"
+        if bracket_right_index == 0:  #bracketがないのでbreak
             break
         else:
             tokens[bracket_left_index]['type'] = 'NUMBER' #かっこ内を計算した結果を'('の位置に代入
             tokens[bracket_left_index]['number'] = evaluate(tokens_inside_bracket)
-            print "()内の計算結果 = "
-            print tokens[bracket_left_index]['number']
             for i in range(bracket_left_index + 1, bracket_right_index + 1): #かっこ内の計算後にいらないtokenを削除
                 del tokens[bracket_left_index + 1]
             # print  "()内を計算した後のtokens = "
